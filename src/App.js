@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+/* import logo from './logo.svg'; */
+/* import { Counter } from './features/counter/Counter' */
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import CustomNavbar from './Components/CustomNavbar'
+import { ProductCard } from './Components/ProductCard';
+import { selectInventory } from './features/inventory/inventorySlice';
+import { useSelector, useDispatch } from 'react-redux';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 function App() {
+  const inventory = useSelector(selectInventory);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <CustomNavbar></CustomNavbar>
+      <Container>
+        <Row xs={1} sm={2} lg={3}>
+          {
+            inventory.map( product =>
+              <ProductCard product={product} key={product.id}></ProductCard>
+            )
+          }
+          </Row>
+      </Container>
     </div>
   );
 }
