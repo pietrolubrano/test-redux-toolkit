@@ -1,9 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {
-  addProductToInventory,
-  removeProductFromInventory
-} from '../../features/inventory/inventorySlice';
-/* import { Cart } from './Cart'; */
 
 export const slice = createSlice({
   name: 'cart',

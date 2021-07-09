@@ -5,8 +5,7 @@ import Button from 'react-bootstrap/Button'
 import CartIconAdd from '../features/cart/icon/cart-plus-solid.svg'
 import { useDispatch } from 'react-redux';
 import {
-  addProduct,
-  removeProduct,
+  addProduct
 } from '../features/cart/cartSlice';
 import { removeProductFromInventory } from '../features/inventory/inventorySlice';
 import infoIcon from './icon/info-solid.svg'
