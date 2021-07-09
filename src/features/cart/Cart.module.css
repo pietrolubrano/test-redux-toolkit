@@ -1,6 +1,7 @@
 .cartContainer {
     display: flex;
     color: white !important;
+    text-align: center;
 }
 
 .cartBadge {

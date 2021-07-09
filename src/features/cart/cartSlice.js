@@ -16,7 +16,6 @@ export const slice = createSlice({
       } else {
         state[findItem].quantity++;
       }
-
     },
     removeProduct: (state, action) => {
       const product = action.payload;

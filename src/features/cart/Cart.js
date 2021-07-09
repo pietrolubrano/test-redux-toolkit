@@ -1,4 +1,3 @@
-import React from 'react';
 import CartIcon from '../cart/icon/shopping-cart-solid.svg'
 import { useSelector } from 'react-redux';
 import {
@@ -7,7 +6,9 @@ import {
 import styles from './Cart.module.css';
 
 export default function Cart() {
+
   const cart = useSelector(selectCart);
+  
   return (
     <div className={styles.cartContainer}>
       <img src={CartIcon} alt="cart-icon" style={{ height: "2em" }}/>
