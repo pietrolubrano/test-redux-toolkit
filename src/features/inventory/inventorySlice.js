@@ -1,24 +1,54 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { Products } from "../../app/database";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+/* import { Products } from "../../app/database"; */
+
+export const getProducts = createAsyncThunk('inventory/getProducts', async () => {
+  return fetch('https://fakestoreapi.com/products')
+          .then(res => res.json())
+})
+
 export const slice = createSlice({
   name: "inventory",
-  initialState: [...Products],
+  initialState: {
+      list : [],
+      status: null
+    },
   reducers: {
     addProductToInventory: (state, action) => {
       const product = action.payload.product;
-      state.push(product);
+      state.list.push(product);
       console.log("state", state.cart);
       console.log("action payload", action.payload.product);
     },
     removeProductFromInventory: (state, action) => {
-      const product = action.payload.product;
-      state[product.id].stock--;
+      const product = action.payload;
+      const index = state.list.findIndex(
+        item => item.id === product.id
+      )
+      
+      if(index >= 0) {
+        state.list[index].stock--;
+      }
+      
     },
   },
+  extraReducers: {
+    [getProducts.pending]: (state, action) => {
+      state.status = 'loading'
+    },
+    [getProducts.fulfilled]: (state, { payload }) => {
+      state.list = payload
+      state.list.map( product => {
+        return product.stock = Math.floor(Math.random() * 10);
+      })
+      state.status = 'success'
+    },
+    [getProducts.rejected]: (state, action) => {
+      state.status = 'failed'
+    },
+  }
 });
 
-export const { addProductToInventory, removeProductFromInventory } =
-  slice.actions;
+export const { addProductToInventory, removeProductFromInventory } = slice.actions;
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This

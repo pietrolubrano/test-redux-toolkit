@@ -9,36 +9,33 @@ export const slice = createSlice({
   name: 'cart',
   initialState : [],
   reducers: {
-    addproduct: (state, action) => {
-      const product = {...action.payload.product};
-      var alredyInTheCart = false
-      for (let i = 0; i < state.length && !alredyInTheCart; i++) {
-        if(state[i].id === product.id) {
-          alredyInTheCart = true;
-          state[i].quantity++;
-        }
+    addProduct: (state, action) => {
+      const product = action.payload;
+
+      const findItem = state.findIndex(item => 
+        product.id === item.id
+      )
+
+      if(findItem === -1){
+        state.push({...product, quantity: 1})
+      } else {
+        state[findItem].quantity++;
       }
 
-      if(!alredyInTheCart) {
-        product.quantity = 1;
-        state.push(product)
-      }
     },
-    removeproduct: (state, action) => {
-      const product = action.payload.product;
-      for (let i = 0; i < state.length; i++) {
-        const cart = state;
-        if(cart[i].id === product.id){
-          cart.splice(i,1);
-        }
-      }
-      console.log(action.payload)
-      /* state = action.payload; */
+    removeProduct: (state, action) => {
+      const product = action.payload;
+
+      const findItem = state.findIndex(item => 
+        product.id === item.id
+      )
+
+      state.splice(findItem,1);
     }
   },
 });
 
-export const { addproduct, removeproduct } = slice.actions;
+export const { addProduct, removeProduct } = slice.actions;
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This

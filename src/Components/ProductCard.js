@@ -5,8 +5,8 @@ import Button from 'react-bootstrap/Button'
 import CartIconAdd from '../features/cart/icon/cart-plus-solid.svg'
 import { useDispatch } from 'react-redux';
 import {
-  addproduct,
-  removeproduct,
+  addProduct,
+  removeProduct,
 } from '../features/cart/cartSlice';
 import { removeProductFromInventory } from '../features/inventory/inventorySlice';
 import infoIcon from './icon/info-solid.svg'
@@ -16,19 +16,18 @@ export function ProductCard({product}) {
     /* const availableQuantity = useSelector(selectInventory); */
     const dispatch = useDispatch();
     const addToCartAndRemoveFromInventory = (product) => {
-        dispatch(addproduct(product))
+        dispatch(addProduct(product))
         dispatch(removeProductFromInventory(product))
     }
 
     return (
         <Col className="pb-3">
             <Card>
-                <Card.Img variant="top" src="https://picsum.photos/300/200" />
+                <Card.Img variant="top" src={product.image} />
                 <Card.Body>
-                    <Card.Title className="font-weight-bold text-capitalize">{product.label}</Card.Title>
+                    <Card.Title className="font-weight-bold text-capitalize">{product.title}</Card.Title>
                     <Card.Text>
-                    Some quick example text to build on the card title and make up the bulk of
-                    the card's content.
+                    {product.description}
                     </Card.Text>
                 </Card.Body>
                 <Card.Footer>
@@ -49,7 +48,7 @@ export function ProductCard({product}) {
 
                                     <Button variant="info"
                                     aria-label="Add product"
-                                    onClick={() => addToCartAndRemoveFromInventory({product})}
+                                    onClick={() => addToCartAndRemoveFromInventory(product)}
                                     >
                                     <img src={CartIconAdd} alt="cart-icon-add" style={{ height: "1.5em" }} />
                                     </Button>
