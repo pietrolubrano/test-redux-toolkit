@@ -5,7 +5,7 @@ import Cart from '../features/cart/Cart'
 
 export default function CustomNavbar(){
     return (
-        <Navbar expand="lg" bg="dark" variant="dark" sticky="top">
+        <Navbar expand="lg" bg="info" variant="dark" sticky="top">
         <Navbar.Brand href="#home">Redux-toolkit</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">

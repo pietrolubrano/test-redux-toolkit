@@ -4,15 +4,13 @@ import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import CartIconAdd from '../features/cart/icon/cart-plus-solid.svg'
 import { useDispatch } from 'react-redux';
-import {
-  addProduct
-} from '../features/cart/cartSlice';
+import { addProduct } from '../features/cart/cartSlice';
 import { removeProductFromInventory } from '../features/inventory/inventorySlice';
 import infoIcon from './icon/info-solid.svg'
-/* import { selectInventory } from '../features/cart/cartSlice'; */
+import { Link } from "react-router-dom";
+import './product-card.css'
 
 export function ProductCard({product}) {
-    /* const availableQuantity = useSelector(selectInventory); */
     const dispatch = useDispatch();
     const addToCartAndRemoveFromInventory = (product) => {
         dispatch(addProduct(product))
@@ -20,13 +18,17 @@ export function ProductCard({product}) {
     }
 
     return (
-        <Col className="pb-3">
-            <Card>
-                <Card.Img variant="top" src={product.image} />
+        <Col className="mb-5 card-container">
+            <Card className="h-100">
+                <Link to={`/product/${product.id}`}>
+                    <Card.Img className="px-4 py-3" variant="top" src={product.image} />
+                </Link>
                 <Card.Body>
-                    <Card.Title className="font-weight-bold text-capitalize">{product.title}</Card.Title>
-                    <Card.Text>
-                    {product.description}
+                    <Link to={`/product/${product.id}`}>
+                        <Card.Title>{product.title}</Card.Title>
+                    </Link>
+                    <Card.Text className="product-description">
+                        {product.description}
                     </Card.Text>
                 </Card.Body>
                 <Card.Footer>
@@ -44,7 +46,6 @@ export function ProductCard({product}) {
                             {product.price} €
                             <span className="ml-auto">
                                 {product.stock > 0 ? 
-
                                     <Button variant="info"
                                     aria-label="Add product"
                                     onClick={() => addToCartAndRemoveFromInventory(product)}

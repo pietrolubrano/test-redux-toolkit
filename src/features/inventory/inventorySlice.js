@@ -11,24 +11,20 @@ export const slice = createSlice({
   initialState: {
       list : [],
       status: null
-    },
+  },
   reducers: {
     addProductToInventory: (state, action) => {
       const product = action.payload.product;
       state.list.push(product);
-      console.log("state", state.cart);
-      console.log("action payload", action.payload.product);
     },
     removeProductFromInventory: (state, action) => {
       const product = action.payload;
       const index = state.list.findIndex(
         item => item.id === product.id
       )
-      
       if(index >= 0) {
         state.list[index].stock--;
       }
-      
     },
   },
   extraReducers: {
