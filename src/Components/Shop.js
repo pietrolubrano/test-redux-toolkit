@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ProductCard } from './ProductCard';
 import CardDeck from 'react-bootstrap/CardDeck'
 
-export function Shop() {
+export default function Shop() {
     const dispatch = useDispatch()
     const inventory = useSelector(selectInventory);
   

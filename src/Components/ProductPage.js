@@ -1,24 +1,44 @@
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button'
-import CartIconAdd from '../features/cart/icon/cart-plus-solid.svg'
-import infoIcon from './icon/info-solid.svg'
+import Button from 'react-bootstrap/Button';
+import CartIconAdd from '../features/cart/icon/cart-plus-solid.svg';
+import infoIcon from './icon/info-solid.svg';
 import { getProducts, selectInventory, removeProductFromInventory } from '../features/inventory/inventorySlice';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { addProduct } from '../features/cart/cartSlice';
+import { addProductToCart } from '../features/cart/cartSlice';
 
-export function ProductPage() {
+export default function ProductPage() {
     const inventory = useSelector(selectInventory);
     const dispatch = useDispatch()
     const [productId, setproductId] = useState(null)
     const [quantity, setQuantity] = useState(1)
     const { id } = useParams()
-    const addToCartAndRemoveFromInventory = (product) => {
-        dispatch(addProduct(product))
-        dispatch(removeProductFromInventory(product))
+    
+    const changeQuantity = (action) => {
+        switch(action) {
+            case 'ADD':
+                if(quantity < product.stock){
+                    setQuantity(quantity + 1)
+                }
+            break;
+            case 'REMOVE':
+                if(quantity > 1){
+                    setQuantity(quantity - 1)
+                }
+            break;
+            default: break;
+        }
+    }
+
+    const addToCartAndRemoveFromInventory = (product, quantity) => {
+        const productAndQuantity = {...product};
+        productAndQuantity.quantity = quantity;
+        dispatch(addProductToCart(productAndQuantity))
+        dispatch(removeProductFromInventory(productAndQuantity))
+        setQuantity(1)
     }
 
     useEffect (() => {
@@ -48,16 +68,21 @@ export function ProductPage() {
                     </Col>
                 </Row>
                 <Row>
+                    <Col>
+                    {product.stock}
+                    </Col>
+                </Row>
+                <Row>
                     <Col className="col-12 col-md-6 offset-md-6 mt-3 mb-5 d-flex align-items-center">
                         <span className="font-weight-bold">{product.price} €</span>
                         {
                             product.stock > 0 ? <>
-                            <Button variant="info" className="h-100 ml-auto" onClick={() => setQuantity(quantity - 1)}>-</Button>
+                            <Button variant="info" className="h-100 ml-auto" onClick={() => changeQuantity('REMOVE')}>-</Button>
                             <input className="h-100" type="number" value={quantity} min="1" max={product.stock} disabled />
-                            <Button variant="info" className="h-100" onClick={() => setQuantity(quantity + 1)}>+</Button>
+                            <Button variant="info" className="h-100" onClick={() => changeQuantity('ADD')}>+</Button>
                             <Button 
                                 variant="info"
-                                onClick={() => addToCartAndRemoveFromInventory(product)}>
+                                onClick={() => addToCartAndRemoveFromInventory(product, quantity)}>
                                     <img src={CartIconAdd} alt="cart-icon-add" style={{ height: "1.5em" }} />
                              </Button> </>
                             :
