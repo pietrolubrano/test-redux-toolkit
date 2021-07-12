@@ -12,10 +12,10 @@ import { addProductToCart } from '../features/cart/cartSlice';
 
 export default function ProductPage() {
     const inventory = useSelector(selectInventory);
-    const dispatch = useDispatch()
-    const [productId, setproductId] = useState(null)
-    const [quantity, setQuantity] = useState(1)
-    const { id } = useParams()
+    const dispatch = useDispatch();
+    const [productId, setproductId] = useState(null);
+    const [quantity, setQuantity] = useState(1);
+    const { id } = useParams();
     
     const changeQuantity = (action) => {
         switch(action) {
@@ -68,11 +68,6 @@ export default function ProductPage() {
                     </Col>
                 </Row>
                 <Row>
-                    <Col>
-                    {product.stock}
-                    </Col>
-                </Row>
-                <Row>
                     <Col className="col-12 col-md-6 offset-md-6 mt-3 mb-5 d-flex align-items-center">
                         <span className="font-weight-bold">{product.price} €</span>
                         {
@@ -83,15 +78,15 @@ export default function ProductPage() {
                             <Button 
                                 variant="info"
                                 onClick={() => addToCartAndRemoveFromInventory(product, quantity)}>
-                                    <img src={CartIconAdd} alt="cart-icon-add" style={{ height: "1.5em" }} />
+                                <img src={CartIconAdd} alt="cart-icon-add" style={{ height: "1.5em" }} />
                              </Button> </>
                             :
                             <Button 
                                 variant="info"
                                 className="ml-auto">
-                                    <img src={infoIcon} alt="cart-icon-add" style={{ height: "1.5em" }} />
-                                </Button>
-                            }
+                                <img src={infoIcon} alt="cart-icon-add" style={{ height: "1.5em" }} />
+                            </Button>
+                        }
                     </Col>
                 </Row>
             </>: null}

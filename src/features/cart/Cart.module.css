@@ -14,3 +14,14 @@
     position: absolute;
     right: 5px;
 }
+
+.priceRow {
+    background-color: white !important;
+    border: none !important;
+}
+
+.priceRow > td {
+    background-color: white !important;
+    border: none !important;
+    border-top: 1px solid #dee2e6 !important;
+}
