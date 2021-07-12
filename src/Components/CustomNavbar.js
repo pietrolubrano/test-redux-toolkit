@@ -2,11 +2,14 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import Cart from '../features/cart/Cart'
+import { Link } from "react-router-dom";
 
 export default function CustomNavbar(){
     return (
         <Navbar expand="lg" bg="info" variant="dark" sticky="top">
-        <Navbar.Brand href="#home">Redux-toolkit</Navbar.Brand>
+        <Link to="/">
+          <Navbar.Brand href="#home">Redux-toolkit</Navbar.Brand>
+        </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
