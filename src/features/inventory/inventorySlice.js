@@ -23,7 +23,7 @@ export const slice = createSlice({
         item => item.id === product.id
       )
       if(index >= 0) {
-        state.list[index].stock--;
+        state.list[index].stock -= product.quantity;
       }
     },
   },

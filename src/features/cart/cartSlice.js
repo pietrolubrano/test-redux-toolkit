@@ -4,7 +4,7 @@ export const slice = createSlice({
   name: 'cart',
   initialState : [],
   reducers: {
-    addProduct: (state, action) => {
+    addProductToCart: (state, action) => {
       const product = action.payload;
 
       const findItem = state.findIndex(item => 
@@ -12,12 +12,12 @@ export const slice = createSlice({
       )
 
       if(findItem === -1){
-        state.push({...product, quantity: 1})
+        state.push({...product})
       } else {
-        state[findItem].quantity++;
+        state[findItem].quantity += product.quantity;
       }
     },
-    removeProduct: (state, action) => {
+    removeProductFromCart: (state, action) => {
       const product = action.payload;
 
       const findItem = state.findIndex(item => 
@@ -29,7 +29,7 @@ export const slice = createSlice({
   },
 });
 
-export const { addProduct, removeProduct } = slice.actions;
+export const { addProductToCart, removeProductFromCart } = slice.actions;
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
